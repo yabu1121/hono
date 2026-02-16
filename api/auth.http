@@ -1,0 +1,4 @@
+@BaseUrl = http://127.0.0.1:8787
+
+###
+GET {{BaseUrl}}/auth/page

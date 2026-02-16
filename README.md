@@ -9,3 +9,5 @@ const id = c.req.param("id");
 
 findメソッド 
 調査対象の配列.find((配列の要素) => 条件)
+
+basicAuth
