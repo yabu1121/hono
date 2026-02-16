@@ -1,0 +1,32 @@
+@BaseUrl = http://127.0.0.1:8787
+
+###
+
+GET {{BaseUrl}}/posts
+
+###
+
+GET {{BaseUrl}}/posts/3
+
+###
+POST {{BaseUrl}}/posts
+Content-Type: application/json
+
+{
+  "title":"title",
+  "content":"contetnt"
+}
+
+###
+
+PUT {{BaseUrl}}/posts/12
+Content-Type: application/json
+
+{
+  "title":"titleupdate",
+  "content":"contetntupdate"
+}
+
+###
+
+DELETE {{BaseUrl}}/posts/2

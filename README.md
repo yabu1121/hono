@@ -1,21 +1,11 @@
-```txt
-npm install
-npm run dev
-```
+Using hono and claudflare workers
 
-```txt
-npm run deploy
-```
 
-[For generating/synchronizing types based on your Worker configuration run](https://developers.cloudflare.com/workers/wrangler/commands/#types):
+学習したこと
+prettyJSON()
 
-```txt
-npm run cf-typegen
-```
+エンドポイントの動的取得は
+const id = c.req.param("id");
 
-Pass the `CloudflareBindings` as generics when instantiation `Hono`:
-
-```ts
-// src/index.ts
-const app = new Hono<{ Bindings: CloudflareBindings }>()
-```
+findメソッド 
+調査対象の配列.find((配列の要素) => 条件)
