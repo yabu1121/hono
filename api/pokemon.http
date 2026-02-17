@@ -6,4 +6,4 @@ GET https://pokeapi.co/api/v2/pokemon?limit=1
 GET https://pokeapi.co/api/v2/pokemon/25
 
 ###
-GET {{baseUrl}}/pokemon
+GET {{baseUrl}}/pokemon/random

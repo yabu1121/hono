@@ -3,7 +3,7 @@ import { getRandomPokemon } from "../lib/pokemon";
 
 const app = new Hono()
 
-app.get('/', async (c) => {
+app.get('/random', async (c) => {
   try {
     const res = await getRandomPokemon()
     return c.json(res)

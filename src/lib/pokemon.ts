@@ -1,3 +1,5 @@
+import { pokemonDict } from "../util/pokemonDict";
+
 type dataType = {
   count: number;
   next: string;
@@ -12,5 +14,11 @@ export const getRandomPokemon = async () => {
   const pokemonIdx = 1 + Math.floor(Math.random() * count) 
   const pokemonRes = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${pokemonIdx - 1}&limit=20`)
   const pokemonData = await pokemonRes.json() as dataType
-  return pokemonData.results[0].name
+  return translatePokemon(pokemonData.results[0].name)
 };
+
+
+export const translatePokemon = (enName: string):string => {
+  const name = enName.toLowerCase();
+  return pokemonDict[name];
+}
