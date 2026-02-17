@@ -1,7 +1,8 @@
 import { relations } from "drizzle-orm"
-import { postsTable, usersTable } from "../schema"
+import { postsTable } from "../schema/posts"
+import { usersTable } from "../schema/users"
 
-export const usersRelation = relations(usersTable, ({ many }) => ({
+export const usersRelations = relations(usersTable, ({ many }) => ({
   posts: many(postsTable),
 }));
 
