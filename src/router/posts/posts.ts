@@ -1,4 +1,6 @@
 import { Hono } from "hono";
+import { db } from "../../db/client";
+import { posts } from "../../db/schema";
 
 let BlogPosts = [
   {
@@ -28,9 +30,8 @@ posts.get('/:id', (c) => {
 
 
 posts.get('/', (c) => {
-  return c.json({
-    posts: BlogPosts    
-  });
+  const allPosts = db.select().from(posts);
+  return c.json({posts: allPosts})
 })
 
 
