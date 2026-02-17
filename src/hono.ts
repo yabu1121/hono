@@ -1,7 +1,7 @@
 import { Hono } from 'hono'
 import { prettyJSON } from 'hono/pretty-json'
 import { basicAuth } from 'hono/basic-auth'
-import posts from './router/posts/posts'
+import posts from './routers/posts/posts'
 import auth from './auth/auth'
 
 // Hono() でインスタンス化をする

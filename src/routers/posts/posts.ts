@@ -8,10 +8,10 @@ import { eq } from "drizzle-orm";
 const app = new Hono();
 
 // postを全件取得
-app.get('/', async (c) => {
-  const allPosts = await db.select().from(postTable);
-  return c.json({posts: allPosts})
-})
+// app.get('/', async (c) => {
+//   const allPosts = await db.select().from(postTable);
+//   return c.json({posts: allPosts})
+// })
 
 // post を id で取得
 // app.get('/:id', async (c) => {
@@ -33,6 +33,11 @@ app.get('/:id', async (c) => {
     .leftJoin(commnetTable, eq(postTable.id, commnetTable.postId))
     .where(eq(postTable.id, Number(id)))
   return c.json(res);
+})
+
+app.get('/', async (c) => {
+  const res = await db.query.findMany()
+  return c.json(res)
 })
 
 
