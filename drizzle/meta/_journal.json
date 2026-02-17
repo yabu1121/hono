@@ -5,43 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1771287970992,
-      "tag": "0000_clear_storm",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1771288861830,
-      "tag": "0001_warm_ezekiel",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1771291803869,
-      "tag": "0002_zippy_nebula",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1771295855473,
-      "tag": "0003_windy_namora",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1771296342716,
-      "tag": "0004_elite_pet_avengers",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1771302885831,
-      "tag": "0005_sticky_zodiak",
+      "when": 1771304988799,
+      "tag": "0000_purple_solo",
       "breakpoints": true
     }
   ]

@@ -1,7 +1,7 @@
 import { AnyPgColumn } from "drizzle-orm/pg-core";
 import { pgTable as table } from "drizzle-orm/pg-core";
 import * as t from "drizzle-orm/pg-core";
-import { rolesEnum } from "./enums";
+import { rolesEnum } from "../helpers/enums";
 
 // Enum 制約、　rolesという名前で、配列内のどれかに該当するように選択する。
 
