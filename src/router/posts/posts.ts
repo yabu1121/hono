@@ -55,7 +55,7 @@ posts.put('/:id', async (c) => {
 posts.delete('/:id', async (c) => {
   const id = c.req.param("id")
   const index = BlogPosts.findIndex((p) => p.id == id);
-  if (index == -1 ) return c.json({message: "post is not found"},404)
+  if (index == -1 ) return c.json({message: "post is not found"}, 404)
   BlogPosts = BlogPosts.filter((p) => p.id !== id)
   return c.json({message : "delete"})
 })

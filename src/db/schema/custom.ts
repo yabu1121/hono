@@ -11,14 +11,14 @@ export const rolesEnum = pgEnum("roles", ["guest", "user", "admin"]);
 // 第二引数にデータベースにテーブルに入れ込むカラムのオブジェクトを入れ込む。
 // 第三引数は 「テーブル全体にかかる制約やインデックス」 を定義する場所です
 export const users = table("users", {
-    id: t.integer().primaryKey().generatedAlwaysAsIdentity(),　// ok
+    id: t.integer().primaryKey().generatedAlwaysAsIdentity(), // ok
     firstName: t.varchar("first_name", { length: 256 }), // ok
     lastName: t.varchar("last_name", { length: 256 }), // ok
     email: t.varchar().notNull(), // ok
     // 自己参照しているけどanypgcolumnがないとtsの循環参照に引っかかる。。
     invitee: t.integer().references((): AnyPgColumn => users.id),
     role: rolesEnum().default("guest"), // ok
-  },　// この第三引数は何を表しているのかわからない。
+  }, // この第三引数は何を表しているのかわからない。
   (table) => [
     // uniqueIndex(一意制約)
     t.uniqueIndex("email_idx").on(table.email)
