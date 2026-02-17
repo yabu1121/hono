@@ -1,0 +1,18 @@
+@baseUrl = http://127.0.0.1:8787
+
+###
+POST {{baseUrl}}/generate/talk
+Content-Type: application/json
+
+{
+  "prompt": "こんにちは"
+}
+
+
+### 
+POST {{baseUrl}}/generate/image
+Content-Type: application/json
+
+{
+  "prompt": "家の画像を出力して"
+}

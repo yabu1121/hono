@@ -1,6 +1,6 @@
 import { pgTable as table } from "drizzle-orm/pg-core";
 import * as t from "drizzle-orm/pg-core";
-import { generateUniqueString } from "../../../util/generate_unique_string";
+import { generateUniqueString } from "../../util/generate_unique_string";
 import { usersTable } from "./users";
 
 // postsテーブル。const 以降にtsでの名前、

@@ -1,8 +1,9 @@
 import { Hono } from 'hono'
 import { prettyJSON } from 'hono/pretty-json'
 import { basicAuth } from 'hono/basic-auth'
-import posts from './routers/posts/posts'
+import posts from './routers/posts'
 import auth from './auth/auth'
+import ai from './routers/ai'
 
 // Hono() でインスタンス化をする
 const app = new Hono()
@@ -15,5 +16,6 @@ app.use(
 
 app.route('/posts', posts)
 app.route('/auth', auth)
+app.route('/generate', ai)
 
 export default app
