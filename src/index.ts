@@ -1,20 +1,19 @@
-import { Hono } from 'hono'
-import { prettyJSON } from 'hono/pretty-json'
-import posts from './router/posts/posts'
-import auth from './auth/auth'
-import { basicAuth } from 'hono/basic-auth'
+import 'dotenv/config'
+import { drizzle } from 'drizzle-orm/postgres-js'
+import postgres from 'postgres'
+import * as schema from './db/schema'
 
-// Hono() でインスタンス化をする
-const app = new Hono()
+async function main() {
+    if (!process.env.DATABASE_URL) {
+        throw new Error('DATABASE_URL is not set')
+    }
 
-app.use("*", prettyJSON())
-app.use(
-  "/auth/*",
-  basicAuth({username: "testUser", password: "password"})
-);
+    const client = postgres(process.env.DATABASE_URL, { prepare: false })
+    // スキーマを渡すことで、dbクエリの結果に型がつきます
+    const db = drizzle(client, { schema });
 
+    // 動作確認: ユーザー一覧を取得（最初は空配列が返るはずです）
+    const users = await db.select().from(schema.usersTable);
+}
 
-app.route('/posts', posts)
-app.route('/auth', auth)
-
-export default app
+main();

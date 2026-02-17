@@ -4,12 +4,22 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy --minify",
-    "cf-typegen": "wrangler types --env-interface CloudflareBindings"
+    "cf-typezgen": "wrangler types --env-interface CloudflareBindings",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "db:pull": "drizzle-kit pull"
   },
   "dependencies": {
-    "hono": "^4.11.9"
+    "dotenv": "^17.3.1",
+    "drizzle-orm": "^0.45.1",
+    "hono": "^4.11.9",
+    "postgres": "^3.4.8"
   },
   "devDependencies": {
+    "@types/node": "^25.2.3",
+    "drizzle-kit": "^0.31.9",
+    "tsx": "^4.21.0",
     "wrangler": "^4.4.0"
   }
 }
