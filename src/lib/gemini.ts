@@ -7,8 +7,7 @@ import { error } from "node:console";
 export const askGemini = async (apiKey: string, prompt: string) => {
   const genAI = new GoogleGenerativeAI(apiKey);
 
-  // モデル名を修正: gemini-2.5-flash -> gemini-1.5-flash
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
   const result = await model.generateContent(prompt);
   const response = await result.response;
@@ -21,7 +20,7 @@ export const genImage = async (apiKey: string, prompt:string) => {
   const ai = new GoogleGenAI({ apiKey });
   const response = await ai.models.generateContent({
     model: "gemini-2.5-flash-image",
-    contents: [{role: 'user', parts: [{text: prompt}]}],
+    contents: [{ role: 'user', parts: [{ text: prompt }] }],
   });
   const candidate = response.candidates?.[0];
 

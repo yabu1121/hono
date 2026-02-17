@@ -1,0 +1,9 @@
+@baseUrl=http://127.0.0.1:8787
+
+### 
+GET https://pokeapi.co/api/v2/pokemon?limit=1
+###
+GET https://pokeapi.co/api/v2/pokemon/25
+
+###
+GET {{baseUrl}}/pokemon
