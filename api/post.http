@@ -6,7 +6,7 @@ GET {{BaseUrl}}/posts
 
 ###
 
-GET {{BaseUrl}}/posts/3
+GET {{BaseUrl}}/posts/2
 
 ###
 POST {{BaseUrl}}/posts

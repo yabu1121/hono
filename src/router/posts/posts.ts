@@ -1,64 +1,25 @@
 import { Hono } from "hono";
 import { db } from "../../db/client";
-import { posts } from "../../db/schema";
+import { posts as postTable } from "../../db/schema/posts"
+import { eq } from "drizzle-orm";
 
-let BlogPosts = [
-  {
-    id: "1",
-    title: "blog1",
-    content: "content1",
-  },
-  {
-    id: "2",
-    title: "blog2",
-    content: "content2",
-  },
-  {
-    id: "3",
-    title: "blog3",
-    content: "content3",
-  },
-]
+const app = new Hono();
 
-const posts = new Hono();
-
-posts.get('/:id', (c) => {
-  const id = c.req.param("id");
-  const post = BlogPosts.find((p) => p.id == id)  
-  return post ? c.json(post) : c.json({message: "not found this page"})
-})
-
-
-posts.get('/', (c) => {
-  const allPosts = db.select().from(posts);
+// postを全件取得
+app.get('/', async (c) => {
+  const allPosts = await db.select().from(postTable);
   return c.json({posts: allPosts})
 })
 
-
-posts.post('/', async (c) => {
-  const {title, content} = await c.req.json<{title: string; content: string;}>()
-  const newPost = {id: String(BlogPosts.length + 1), title, content}
-  BlogPosts = [...BlogPosts, newPost];
-  return c.json(newPost, 201)
+// post を id で取得
+app.get('/:id', async (c) => {
+  const id = c.req.param("id");
+  const post = await db.select()
+    .from(postTable)
+    .where(eq(postTable.id, Number(id)))
+  return post 
+    ? c.json(post) 
+    : c.json({message: "not found this page"})
 })
 
-posts.put('/:id', async (c) => {
-  const id = c.req.param("id")
-  const index = BlogPosts.findIndex((p) => p.id == id);
-  if (index == -1 ) return c.json({message: "post is not found"},404)
-  const {title, content} = await c.req.json<{title: string; content:string}>()
-  BlogPosts[index] = {...BlogPosts[index], title, content}
-
-  return c.json(BlogPosts[index])
-})
-
-
-posts.delete('/:id', async (c) => {
-  const id = c.req.param("id")
-  const index = BlogPosts.findIndex((p) => p.id == id);
-  if (index == -1 ) return c.json({message: "post is not found"}, 404)
-  BlogPosts = BlogPosts.filter((p) => p.id !== id)
-  return c.json({message : "delete"})
-})
-
-export default posts
+export default app
