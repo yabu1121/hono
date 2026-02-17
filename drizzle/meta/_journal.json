@@ -15,6 +15,13 @@
       "when": 1771288861830,
       "tag": "0001_warm_ezekiel",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1771291803869,
+      "tag": "0002_zippy_nebula",
+      "breakpoints": true
     }
   ]
 }
