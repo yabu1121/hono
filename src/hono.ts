@@ -5,6 +5,7 @@ import posts from './routers/posts'
 import auth from './auth/auth'
 import ai from './routers/ai'
 import pokemon from './routers/pokemon'
+import { createGeminiPokemonPrompt } from './lib/gemini'
 
 // Hono() でインスタンス化をする
 const app = new Hono()

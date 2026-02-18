@@ -1,6 +1,6 @@
 // src/routers/ai.ts
 import { Hono } from 'hono';
-import { askGemini, genImage } from '../lib/gemini';
+import { askGemini, createGeminiPokemonPrompt, genImage } from '../lib/gemini';
 
 interface GenerateRequest {
   prompt: string;
@@ -57,6 +57,26 @@ app.post('/image', async (c) => {
       status: e.status || 500,
       details: e.response?.data || undefined
     }, 500);
+  }
+});
+
+
+app.get('/pokemon-card', async (c) => {
+  const apiKey = c.env.GEMINI_API_KEY;
+  try {
+    const promptData = await createGeminiPokemonPrompt();
+    if (!promptData) {
+      return c.json({ error: "ポケモンの取得またはプロンプト生成に失敗しました" }, 500);
+    }
+    const refinedPrompt = await askGemini(apiKey, promptData.prompt);
+    return c.json({
+      success: true,
+      pokemon: promptData.pokemonData,
+      imageGenerationPrompt: refinedPrompt
+    });
+  } catch (e: any) {
+    console.error("Pokemon Card Flow Error:", e);
+    return c.json({ error: e.message }, 500);
   }
 });
 

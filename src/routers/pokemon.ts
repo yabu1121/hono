@@ -14,3 +14,4 @@ app.get('/random', async (c) => {
 })
 
 export default app
+

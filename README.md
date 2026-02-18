@@ -24,3 +24,23 @@ npx drizzle-kit migrate
 ### schema 
 schema
 ### normalization
+
+
+### データベース遊び
+
+### pokemon image generator
+pokemon api => ランダムでポケモンを取得
+gemini api => pokemon api で取得したポケモンのデータ()を加工し、プロンプトを作成してもらうプロンプトをたたく。
+```
+{
+  "name": "ニダンギル",
+  "en_name": "doublade",
+  "image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/680.png",
+  "shiny_image_url": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/680.png",
+  "types": "steel, ghost",
+  "habitat": "unknown",
+  "features": "When Honedge evolves, it divides into two swords, which cooperate via telepathy to coordinate attacks and slash their enemies to ribbons."
+}
+```
+
+未実装　gemini api => そのプロンプトから画像を生成する。

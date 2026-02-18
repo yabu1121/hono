@@ -16,3 +16,7 @@ Content-Type: application/json
 {
   "prompt": "家の画像を出力して"
 }
+
+
+### 
+GET {{baseUrl}}/generate/pokemon-card

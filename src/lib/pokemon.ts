@@ -1,24 +1,46 @@
-import { pokemonDict } from "../util/pokemonDict";
+import { translatePokemon } from "../util/translate_pokemon";
 
-type dataType = {
-  count: number;
-  next: string;
-  previous: string | null;
-  results: {name: string; url: string} []
+interface PokemonDetailResponse {
+  name: string;
+  sprites: {
+    front_default: string;
+    front_shiny: string;
+  };
+  types: { type: { name: string } }[];
+}
+
+interface PokemonSpeciesResponse {
+  habitat: { name: string } | null;
+  flavor_text_entries: { flavor_text: string; language: { name: string } }[];
 }
 
 export const getRandomPokemon = async () => {
-  const res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1')
-  const data = await res.json() as dataType
-  const count = data.count
-  const pokemonIdx = 1 + Math.floor(Math.random() * count) 
-  const pokemonRes = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${pokemonIdx - 1}&limit=20`)
-  const pokemonData = await pokemonRes.json() as dataType
-  return translatePokemon(pokemonData.results[0].name)
+  try {
+    const countRes = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1');
+    const countData = await countRes.json();
+    const randomId = Math.floor(Math.random() * countData.count) + 1;
+
+    const pokemonRes = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomId}`);
+    const pokemonData = (await pokemonRes.json()) as PokemonDetailResponse;
+
+    const speciesRes = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${randomId}`);
+    const speciesData = (await speciesRes.json()) as PokemonSpeciesResponse;
+
+    const flavorText = speciesData.flavor_text_entries
+      .find((entry) => entry.language.name === 'en')
+      ?.flavor_text.replace(/[\n\f]/g, ' ') || 'No description available';
+
+    return {
+      name: translatePokemon(pokemonData.name),
+      en_name: pokemonData.name,
+      image_url: pokemonData.sprites.front_default,
+      shiny_image_url: pokemonData.sprites.front_shiny,
+      types: pokemonData.types.map(t => t.type.name).join(', '),
+      habitat: speciesData.habitat?.name || 'unknown',
+      features: flavorText
+    };
+  } catch (error) {
+    console.error("getRandomPokemon Error:", error);
+    return null;
+  }
 };
-
-
-export const translatePokemon = (enName: string):string => {
-  const name = enName.toLowerCase();
-  return pokemonDict[name];
-}
