@@ -1,4 +1,3 @@
-// タイプ別のスタイル設定
 export const getStyleByType = (types: string[]): { mood: string; style: string; pose: string } => {
   const typeStyles: Record<string, { mood: string; style: string; pose: string }> = {
     Fire:     { mood: "fierce, passionate, energetic",          style: "dynamic action pose, dramatic flames, strong brushstrokes", pose: "leaping forward with blazing intensity" },
@@ -21,7 +20,6 @@ export const getStyleByType = (types: string[]): { mood: string; style: string; 
     Steel:    { mood: "cool, stoic, mechanical",                style: "metallic sheen, sharp edges, industrial lighting",       pose: "standing tall with gleaming armor" },
   };
 
-  // 複数タイプの場合は最初のタイプを優先
   const primaryType = types[0];
   return typeStyles[primaryType] ?? {
     mood:  "charming, lively, expressive",

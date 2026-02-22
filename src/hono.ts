@@ -14,7 +14,7 @@ app.use("*", prettyJSON())
 app.use(
   "/auth/*",
   basicAuth({
-    username: process.env.BASIC_AUTH_USERNAME!, 
+    username: process.env.BASIC_AUTH_USERNAME!,
     password: process.env.BASIC_AUTH_PASSWORD!
   })
 );

@@ -15,27 +15,31 @@ export const askGemini = async (apiKey: string, prompt: string) => {
 };
 
 
-export const genImage = async (apiKey: string, prompt:string) => {
+export const genImageWithImagen = async (apiKey: string, prompt: string) => {
   const ai = new GoogleGenAI({ apiKey });
+
+  // 無料枠のユーザーでも動作しやすい試験的マルチモーダルモデルを使用
   const response = await ai.models.generateContent({
-    model: "gemini-2.5-flash-image",
+    model: 'gemini-2.0-flash-exp-image-generation',
     contents: [{ role: 'user', parts: [{ text: prompt }] }],
+    config: {
+      responseModalities: ['TEXT', 'IMAGE'],
+    },
   });
+
+  const images: string[] = [];
   const candidate = response.candidates?.[0];
 
-  if (!candidate || !candidate.content || !candidate.content.parts) {
-    throw new Error("Geminiからの有効なレスポンスが得られませんでした");
-  }
-  let result: { text?: string; imageBase64?: string } = {};
-  for (const part of candidate.content.parts) {
-    if (part.text) {
-      result.text = part.text;
-    } else if (part.inlineData) {
-      result.imageBase64 = part.inlineData.data;
+  if (candidate?.content?.parts) {
+    for (const part of candidate.content.parts) {
+      if (part.inlineData) {
+        images.push(part.inlineData.data ?? "");
+      }
     }
   }
-  return result;
-}
+
+  return images;
+};
 
 
 export const createGeminiPokemonPrompt = async () => {
@@ -45,7 +49,7 @@ export const createGeminiPokemonPrompt = async () => {
 
     const { name, en_name, image_url, types, features, habitat } = data;
 
-    
+
     const typeList = types.split("/").map((t) => t.trim());
     const styleConfig = getStyleByType(typeList);
 
