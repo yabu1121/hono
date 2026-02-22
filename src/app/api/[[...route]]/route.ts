@@ -6,7 +6,7 @@ import auth from '../../../auth/auth'
 import ai from '../../../routers/ai'
 import pokemon from '../../../routers/pokemon'
 
-export const runtime = 'edge'
+// export const runtime = 'edge'
 
 const app = new Hono().basePath('/api')
 
