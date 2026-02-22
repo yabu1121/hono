@@ -16,7 +16,7 @@ const app = new Hono<{ Bindings: Bindings }>();
 app.post('/talk', async (c) => {
   const { prompt } = await c.req.json();
 
-  const apiKey = c.env.GEMINI_API_KEY;
+  const apiKey = (c.env?.GEMINI_API_KEY || process.env.GEMINI_API_KEY) as string;
 
   if (!prompt) {
     return c.json({ error: "prompt is required" }, 400);
@@ -47,7 +47,7 @@ app.post('/image/imagen', async (c) => {
   }
 
   const { prompt, numberOfImages = 1 } = body;
-  const apiKey = c.env.GEMINI_API_KEY;
+  const apiKey = (c.env?.GEMINI_API_KEY || process.env.GEMINI_API_KEY) as string;
 
   try {
     const images = await genImageWithImagen(apiKey, prompt);
@@ -68,7 +68,7 @@ app.post('/image/imagen', async (c) => {
 
 
 app.get('/pokemon', async (c) => {
-  const apiKey = c.env.GEMINI_API_KEY;
+  const apiKey = (c.env?.GEMINI_API_KEY || process.env.GEMINI_API_KEY) as string;
   try {
     const promptData = await createGeminiPokemonPrompt();
     if (!promptData) {
@@ -88,7 +88,7 @@ app.get('/pokemon', async (c) => {
 
 
 app.get('/pokemon/imagen', async (c) => {
-  const apiKey = c.env.GEMINI_API_KEY;
+  const apiKey = (c.env?.GEMINI_API_KEY || process.env.GEMINI_API_KEY) as string;
   try {
     const promptData = await createGeminiPokemonPrompt();
     if (!promptData) {

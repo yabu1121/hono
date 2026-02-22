@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
 import { prettyJSON } from 'hono/pretty-json'
 import { basicAuth } from 'hono/basic-auth'
+import { cors } from 'hono/cors'
 import posts from './routers/posts'
 import auth from './auth/auth'
 import ai from './routers/ai'
@@ -10,6 +11,10 @@ import { createGeminiPokemonPrompt } from './lib/gemini'
 // Hono() でインスタンス化をする
 const app = new Hono()
 
+app.use('*', cors({
+  origin: 'http://localhost:3000',
+  allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+}))
 app.use("*", prettyJSON())
 app.use(
   "/auth/*",

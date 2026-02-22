@@ -13,8 +13,7 @@ export default function Page() {
     setPrompt('');
     setCopied(false);
     try {
-      const host = window.location.hostname === 'localhost' ? 'http://localhost:8787' : '';
-      const res = await fetch(`${host}/generate/pokemon`);
+      const res = await fetch('/api/generate/pokemon');
       const data = await res.json();
 
       if (data.success) {
@@ -99,19 +98,9 @@ export default function Page() {
               </div>
 
               <div className="relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-1000"></div>
                 <div className="relative bg-slate-900 rounded-2xl p-7 font-mono text-sm sm:text-base leading-relaxed text-slate-300 border border-slate-800 shadow-inner">
                   {prompt}
                 </div>
-              </div>
-
-              <div className="mt-6 flex items-start gap-3 p-4 bg-blue-50/50 rounded-xl border border-blue-100/50">
-                <div className="bg-blue-100 rounded-full p-1 mt-0.5">
-                  <Check className="w-3 h-3 text-blue-600" />
-                </div>
-                <p className="text-xs text-blue-700/80 leading-relaxed">
-                  このプロンプトを任意の画像生成AI（Imagen 3, Midjourney, Stable Diffusion等）にコピー＆ペーストしてご利用いただけます。
-                </p>
               </div>
             </div>
           )}
